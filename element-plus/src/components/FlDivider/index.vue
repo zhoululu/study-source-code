@@ -1,5 +1,5 @@
 <template>
-    <div class="fl-divider fl-divider--horizonal" style="--fl-border-style: solid">
+    <div :class="['fl-divider', `fl-divider--${direction}`]" :style="dividerStyle">
         <div v-if="$slots.default && direction === 'horizonal'" :class="['fl-divider__text', `is-${ contentPosition }`]">
             <slot></slot>
         </div>
@@ -7,7 +7,8 @@
 </template>
 
 <script setup lang="ts">
-import type { PropType } from 'vue'
+import type { PropType, CSSProperties } from 'vue'
+import { computed } from 'vue'
 defineOptions({
     name: 'FlDivider'
 })
@@ -20,7 +21,17 @@ const props = defineProps({
     contentPosition: {
         type: String as PropType<'left' | 'center' | 'right'>,
         default: 'left'
+    },
+    borderStyle: {
+        type: String as PropType<CSSStyleDeclaration['borderStyle']>,
+        default: 'solid'
     }
+})
+
+const dividerStyle = computed(() => {
+    return {
+        '--fl-border-style': props.borderStyle
+    } as CSSProperties
 })
 </script>
 
@@ -34,6 +45,15 @@ const props = defineProps({
     width: 100%;
     margin: 24px 0;
     border-top: 1px var(--fl-border-color) var(--fl-border-style);
+}
+.fl-divider--vertical {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    margin: 0 8px;
+    vertical-align: middle;
+    position: relative;
+    border-left: 1px var(--fl-border-color) var(--fl-border-style);
 }
 .fl-divider__text {
     position: absolute;

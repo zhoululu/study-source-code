@@ -4,7 +4,9 @@ import FlDivider from './components/FlDivider/index.vue'
 
 <template>
   <div>
-    <FlDivider content-position="right">哈哈</FlDivider>
+    <span>天气</span>
+    <FlDivider content-position="right" direction="horizonal" border-style="dotted">哈哈</FlDivider>
+    <span>真好</span>
   </div>
 
 </template>
